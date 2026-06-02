@@ -11,7 +11,7 @@ class Usuario(database.Model):
 class Tarefa(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     id_responsavel = database.Column(database.Integer, database.ForeignKey('usuario.id'))
-    id_criador = database.Column(database.Integer, database.ForeignKey('usuario.id'))
+    id_criador = database.Column(database.Integer, database.ForeignKey('usuario.id'), nullable=False)
     data_criacao = database.Column(database.DateTime, nullable=False, default=datetime.utcnow)
     data_entrega = database.Column(database.DateTime, nullable=False)
     prazo = database.Column(database.DateTime, nullable=False)
