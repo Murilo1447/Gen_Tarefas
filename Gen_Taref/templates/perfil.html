@@ -1,0 +1,14 @@
+{% extends "Homepage.html" %}
+
+{% block titulo %}
+Perfil - {{ usuario }}
+{% endblock %}
+
+{% block body %}
+<h1>Esse é o  perfil do {{usuario}} no Gerenciador de tarefas</h1>
+<a href="{{url_for('homepage')}}">Sair</a>
+{% endblock %}
+
+
+
+
