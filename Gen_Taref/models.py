@@ -6,7 +6,6 @@ class Usuario(database.Model):
     nome = database.Column(database.String , nullable=False)
     email = database.Column(database.String, nullable=False , unique=True)
     senha = database.Column(database.String, nullable=False)
-    senha = database.Column(database.String,nullable=False)
     cargo = database.Column(database.String, nullable=False)
 
 class Tarefa(database.Model):
