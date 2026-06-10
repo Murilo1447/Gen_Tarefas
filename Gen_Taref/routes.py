@@ -5,12 +5,13 @@ from Gen_Taref.forms import FormLogin, FormCriarConta
 
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
-    return render_template('homepage.html')
+    formLogin = FormLogin()
+    return render_template('homepage.html' , formLogin=formLogin)
 
 @app.route('/criarconta', methods=['GET', 'POST'])
 def criar_conta():
     formcriarconta = FormCriarConta()
-    return render_template('criarconta.html')
+    return render_template('criarconta.html', form=formcriarconta)
 
 
 @app.route('/perfil/<usuario>')
