@@ -1,5 +1,7 @@
-from Gen_Taref import database
+from Gen_Taref import database, login_manager
 from datetime import datetime
+from flask_login import UserMixin
+
 
 class Usuario(database.Model):
     id = database.Column(database.Integer, primary_key=True)
@@ -7,6 +9,11 @@ class Usuario(database.Model):
     email = database.Column(database.String, nullable=False , unique=True)
     senha = database.Column(database.String, nullable=False)
     cargo = database.Column(database.String, nullable=False)
+
+    @login_manager.user_loader
+    def load_user(id):
+        return Usuario.query.get(int(id))
+
 
 class Tarefa(database.Model):
     id = database.Column(database.Integer, primary_key=True)
