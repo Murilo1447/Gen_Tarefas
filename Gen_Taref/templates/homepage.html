@@ -1,16 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>{%block titulo%}
-            homepage
-        {%endblock%}
+    <title>
+        {% block titulo %}
+        Title
+        {% endblock %}
     </title>
 </head>
 <body>
-{%block body%}
-<h1>Pagina Inicial</h1>
-<a href="{{url_for('perfil', usuario='Murilo')}}">Entrar</a>
-{%endblock%}
+
+{% block body %}
+<h1>Crie uma conta ou faça login</h1>
+<a href="{{ url_for('perfil', usuario='Murilo') }}">Entrar</a>
+
+<form method="POST">
+    {{ form.csrf_token }}
+
+    {{ form.email.label }}
+    {{ form.email() }}
+
+    {{ form.senha.label }}
+    {{ form.senha() }}
+
+    {{ form.botao_confirmacao() }}
+</form>
+
+<p>Não tem uma conta? <a href="{{ url_for('criar_conta') }}">Clique aqui para criar uma conta</a></p>
+{% endblock %}
+
 </body>
 </html>

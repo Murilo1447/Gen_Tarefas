@@ -1,14 +1,21 @@
-{% extends "Homepage.html" %}
+{% extends 'homepage.html' %}
 
 {% block titulo %}
-Perfil - {{ usuario }}
+Perfil de {{ usuario }}
 {% endblock %}
 
 {% block body %}
-<h1>Esse é o  perfil do {{usuario}} no Gerenciador de tarefas</h1>
-<a href="{{url_for('homepage')}}">Sair</a>
+<h1>Bem-vindo ao seu perfil, {{ usuario }}!</h1>
+
+<hr>
+
+<h3>Suas Informações:</h3>
+<p><strong>Nome:</strong> {{ current_user.nome }}</p>
+<p><strong>E-mail:</strong> {{ current_user.email }}</p>
+
+<p><strong>Cargo:</strong> {{ current_user.cargo.capitalize() }}</p>
+
+<hr>
+
+<a href="{{ url_for('homepage') }}">Sair / Voltar</a>
 {% endblock %}
-
-
-
-
