@@ -5,7 +5,7 @@ Perfil de {{ usuario.nome }}
 {% endblock %}
 
 {% block body %}
-<h1>Bem-vindo ao seu perfil, {{ usuario.nome }}!</h1>
+<h1>Bem-vindo ao seu perfil, {{ usuario.nome }} !</h1>
 
 <hr>
 
@@ -14,8 +14,12 @@ Perfil de {{ usuario.nome }}
 <p><strong>E-mail:</strong> {{ current_user.email }}</p>
 
 <p><strong>Cargo:</strong> {{ current_user.cargo.capitalize() }}</p>
-
+{% if current_user.cargo == 'gerente' %}
+    <a href="{{ url_for('criar_tarefa') }}">
+        Criar Tarefa
+    </a>
+{% endif %}
 <hr>
 
-<a href="{{ url_for('homepage') }}">Sair / Voltar</a>
+<a href="{{ url_for('logout') }}">Sair / Voltar</a>
 {% endblock %}

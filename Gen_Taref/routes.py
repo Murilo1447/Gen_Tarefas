@@ -1,8 +1,8 @@
 from flask import render_template, url_for, redirect
 from flask_login import login_required, login_user, logout_user, current_user
 from Gen_Taref import app, database, bcrypt
-from Gen_Taref.forms import FormLogin, FormCriarConta
-from Gen_Taref.models import Usuario
+from Gen_Taref.forms import FormLogin, FormCriarConta, FormCriarTarefa
+from Gen_Taref.models import Usuario, Tarefa
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -40,17 +40,51 @@ def criar_conta():
 
     return render_template('criarconta.html', form=form)
 
+@app.route('/criar_tarefa', methods=['GET', 'POST'])
+@login_required
+def criar_tarefa():
+
+    if current_user.cargo != 'gerente':
+        return redirect(url_for('perfil',id_usuario=current_user.id)
+        )
+
+    form = FormCriarTarefa()
+
+    if form.validate_on_submit():
+        funcionario = Usuario.query.get(form.id_responsavel.data)
+
+        if funcionario:
+            tarefa = Tarefa(
+                titulo=form.titulo.data,
+                descricao=form.descricao.data,
+                id_responsavel=funcionario.id,
+                id_criador=current_user.id,
+                data_entrega=form.data_entrega.data,
+                status=form.status.data,
+                demanda=form.demanda.data
+            )
+
+            database.session.add(tarefa)
+            database.session.commit()
+
+            return redirect(
+                url_for('perfil',id_usuario=current_user.id)
+            )
+
+
+
+    return render_template('criartarefa.html',form=form)
 
 @app.route('/perfil/<id_usuario>')
 @login_required
 def perfil(id_usuario):
     if int(id_usuario) == (current_user.id):
-        # O usuario está vendo o perfil dele
+
         return render_template('perfil.html', usuario=current_user)
     else:
         usuario = Usuario.query.get(int(id))
-        # Está vendo o perfil de outra pessoa
-    return render_template('perfil.html', usuario=usuario)
+
+    return render_template('perfil.html', usuario=usuario, form=None)
 
 
 
