@@ -75,14 +75,13 @@ def criar_tarefa():
 
     return render_template('criartarefa.html',form=form)
 
+
 @app.route('/perfil/<id_usuario>')
 @login_required
 def perfil(id_usuario):
-    if int(id_usuario) == (current_user.id):
+   
+    usuario = Usuario.query.get_or_404(int(id_usuario))
 
-        return render_template('perfil.html', usuario=current_user)
-    else:
-        usuario = Usuario.query.get(int(id))
 
     return render_template('perfil.html', usuario=usuario, form=None)
 

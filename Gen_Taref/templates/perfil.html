@@ -5,16 +5,17 @@ Perfil de {{ usuario.nome }}
 {% endblock %}
 
 {% block body %}
-<h1>Bem-vindo ao seu perfil, {{ usuario.nome }} !</h1>
+<h1>Perfil de {{ usuario.nome }}</h1>
 
 <hr>
 
-<h3>Suas Informações:</h3>
-<p><strong>Nome:</strong> {{ current_user.nome }}</p>
-<p><strong>E-mail:</strong> {{ current_user.email }}</p>
+<h3>Informações do Usuário:</h3>
+<p><strong>Nome:</strong> {{ usuario.nome }}</p>
+<p><strong>E-mail:</strong> {{ usuario.email }}</p>
+<p><strong>Cargo:</strong> {{ usuario.cargo.capitalize() }}</p>
 
-<p><strong>Cargo:</strong> {{ current_user.cargo.capitalize() }}</p>
-{% if current_user.cargo == 'gerente' %}
+{% if current_user.cargo.lower() == 'gerente' and current_user.id == usuario.id %}
+    <br>
     <a href="{{ url_for('criar_tarefa') }}">
         Criar Tarefa
     </a>
